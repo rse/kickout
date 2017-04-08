@@ -33,10 +33,11 @@ $ npm publish --tag=<package-tag>
 Attention
 ---------
 
-The executed shell commands might garble or even destroy some of your data.
-Hence, be very careful and use the Kickout command on your own risk.
-Especially, perform a dry-run with option `--noop` always first to
-see what particular commands would be executed.
+The executed shell commands might garble or even destroy some of your
+data. Hence, be very careful and use the Kickout command on your own
+risk. Especially, perform a dry-run with option `--noop` always first
+to see what particular commands would be executed. Also notice that the
+initial "npm publish" intentionally has to be performed manually.
 
 Installation
 ------------
