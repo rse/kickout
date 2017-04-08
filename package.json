@@ -20,7 +20,7 @@
         "url":  "http://github.com/rse/kickout/issues"
     },
     "bin": {
-        "upd":  "./kickout.js"
+        "kickout": "./kickout.js"
     },
     "devDependencies": {
         "grunt":                "~1.0.1",
