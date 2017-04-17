@@ -31,7 +31,7 @@
         "babel-eslint":         "~7.2.2"
     },
     "dependencies" : {
-        "yargs":                "~7.0.2",
+        "yargs":                "~7.1.0",
         "update-notifier":      "~2.1.0",
         "escape-string-regexp": "~1.0.5",
         "bluebird":             "~3.5.0",
