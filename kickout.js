@@ -77,12 +77,12 @@ co(function * () {
     var bump = argv._[0]
 
     /*  helper functions  */
-    const out = (txt) => {
+    var out = (txt) => {
         if (argv.noColor)
             txt = chalk.stripColor(txt)
         process.stdout.write(txt)
     }
-    const cmd = (cmd, noop) => {
+    var cmd = (cmd, noop) => {
         if (noop) {
             out(`$ ${chalk.blue("# " + cmd)}\n`)
             return Promise.resolve({ stdout: "", stderr: "" })
@@ -108,7 +108,7 @@ co(function * () {
     }
 
     /*  step 2: check Git working copy status  */
-    let status = yield (cmd("git status --porcelain", false).then(({ stdout, stderr }) => {
+    var status = yield (cmd("git status --porcelain", false).then(({ stdout, stderr }) => {
         if (stdout === "" && stderr === "")
             return "clean"
         else if (stderr === "")
@@ -128,7 +128,7 @@ co(function * () {
         yield (cmd("npm run prepublish", argv.noop))
 
     /*  step 4: determine latest published NPM version  */
-    let versionOld = yield (cmd(`npm view ${pkg.name} version`, false).then((res) => res.stdout))
+    var versionOld = yield (cmd(`npm view ${pkg.name} version`, false).then((res) => res.stdout))
     versionOld = versionOld.replace(/\r?\n$/, "")
 
     /*  step 5: bump version number in package.json  */
@@ -136,8 +136,8 @@ co(function * () {
         out(`** ${chalk.red.bold("ERROR:")} latest published NPM package version not equal current version in package.json\n`)
         process.exit(1)
     }
-    let versionNew = semver.inc(pkg.version, bump)
-    let re = new RegExp(`(["']version["'][ \t\r\n]*:[ \t\r\n]*["'])${escRE(versionOld)}(["'])`)
+    var versionNew = semver.inc(pkg.version, bump)
+    var re = new RegExp(`(["']version["'][ \t\r\n]*:[ \t\r\n]*["'])${escRE(versionOld)}(["'])`)
     var pkgDataNew = pkgData.replace(re, `$1${versionNew}$2`)
     if (pkgDataNew === pkgData)
         throw new Error("failed to update package configuration from version \"" + versionOld + "\" to \"" + versionNew + "\"")
@@ -145,7 +145,7 @@ co(function * () {
         fs.writeFileSync("package.json", pkgDataNew, { encoding: "utf8" })
 
     /*  step 6: commit changes to Git  */
-    let message = argv.message !== "" ? argv.message : `release version ${versionNew}`
+    var message = argv.message !== "" ? argv.message : `release version ${versionNew}`
     message = message.replace(/"/g, "\\\"").replace(/\$/g, "\\$")
     yield (cmd(`git commit -m "${message}" package.json`, argv.noop))
 
