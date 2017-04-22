@@ -73,7 +73,7 @@ co(function * () {
 
     /*  gather argument  */
     if (argv._.length !== 1)
-        throw "invalid number of arguments"
+        throw new Error("invalid number of arguments")
     var bump = argv._[0]
 
     /*  helper functions  */
@@ -91,7 +91,7 @@ co(function * () {
             out(`$ ${chalk.blue(cmd)}\n`)
             return exeq(cmd)
                 .then((res) => res[0])
-                .catch((/* err */) => { throw "shell command failed" })
+                .catch((/* err */) => { throw new Error("shell command failed") })
         }
     }
 
@@ -140,7 +140,7 @@ co(function * () {
     let re = new RegExp(`(["']version["'][ \t\r\n]*:[ \t\r\n]*["'])${escRE(versionOld)}(["'])`)
     var pkgDataNew = pkgData.replace(re, `$1${versionNew}$2`)
     if (pkgDataNew === pkgData)
-        throw "failed to update package configuration from version \"" + versionOld + "\" to \"" + versionNew + "\""
+        throw new Error("failed to update package configuration from version \"" + versionOld + "\" to \"" + versionNew + "\"")
     if (!argv.noop)
         fs.writeFileSync("package.json", pkgDataNew, { encoding: "utf8" })
 
@@ -153,7 +153,7 @@ co(function * () {
     yield (cmd(`git tag ${versionNew}`, argv.noop))
 
     /*  step 8: push changes to upstream repository  */
-    yield (cmd(`git push && git push --tags`, argv.noop))
+    yield (cmd("git push && git push --tags", argv.noop))
 
     /*  step 9: publish new NPM package version  */
     yield (cmd(`npm publish --tag=${argv.tag}`, argv.noop))

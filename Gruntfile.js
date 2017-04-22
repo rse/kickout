@@ -25,16 +25,9 @@
 /* global module: true */
 module.exports = function (grunt) {
     grunt.initConfig({
-        jshint: {
-            options: {
-                jshintrc: "jshint.json"
-            },
-            gruntfile:   [ "Gruntfile.js" ],
-            sourcefiles: [ "kickout.js" ]
-        },
         eslint: {
             options: {
-                configFile: "eslint.json"
+                configFile: "eslint.yaml"
             },
             target: [ "kickout.js" ],
         },
@@ -44,10 +37,9 @@ module.exports = function (grunt) {
         }
     })
 
-    grunt.loadNpmTasks("grunt-contrib-jshint")
     grunt.loadNpmTasks("grunt-contrib-clean")
     grunt.loadNpmTasks("grunt-eslint")
 
-    grunt.registerTask("default", [ "jshint", "eslint" ])
+    grunt.registerTask("default", [ "eslint" ])
 }
 
