@@ -59,7 +59,7 @@ co(function * () {
             .describe("t", "set particular NPM package tag")
         .strict()
         .showHelpOnFail(true)
-        .demand(0)
+        .demand(1)
         .parse(process.argv.slice(2))
 
     /*  short-circuit processing of "-V" command-line option  */
