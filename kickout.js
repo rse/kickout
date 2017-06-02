@@ -75,6 +75,8 @@ co(function * () {
     if (argv._.length !== 1)
         throw new Error("invalid number of arguments")
     var bump = argv._[0]
+    if (!bump.match(/^(?:major|minor|patch)$/))
+        throw new Error("invalid bumping mode")
 
     /*  helper functions  */
     var out = (txt) => {
