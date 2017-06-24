@@ -128,6 +128,8 @@ co(function * () {
     /*  step 3: optionally run NPM pre-publish scripts  */
     if (typeof pkg.scripts === "object" && typeof pkg.scripts.prepublish === "string")
         yield (cmd("npm run prepublish", argv.noop))
+    else if (typeof pkg.scripts === "object" && typeof pkg.scripts.prepublishOnly === "string")
+        yield (cmd("npm run prepublishOnly", argv.noop))
 
     /*  step 4: determine latest published NPM version  */
     var versionOld = yield (cmd(`npm view ${pkg.name} version`, false).then((res) => res.stdout))
