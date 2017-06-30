@@ -44,7 +44,7 @@ co(function * () {
 
     /*  command-line option parsing  */
     var argv = yargs
-        .usage("Usage: $0 [-h] [-V] [-C] [-m <message>] [-t <tag>] major|minor|patch")
+        .usage("Usage: $0 [-h] [-V] [-C] [-m <message>] [-t <tag>] major|minor|patch|X.Y.Z")
         .help("h").alias("h", "help").default("h", false)
         .describe("h", "show usage help")
         .boolean("V").alias("V", "version").default("V", false)
@@ -75,7 +75,7 @@ co(function * () {
     if (argv._.length !== 1)
         throw new Error("invalid number of arguments")
     var bump = argv._[0]
-    if (!bump.match(/^(?:major|minor|patch)$/))
+    if (!bump.match(/^(?:major|minor|patch|\d+\.\d+\.\d+)$/))
         throw new Error("invalid bumping mode")
 
     /*  helper functions  */
@@ -140,7 +140,7 @@ co(function * () {
         out(`** ${chalk.red.bold("ERROR:")} latest published NPM package version not equal current version in package.json\n`)
         process.exit(1)
     }
-    var versionNew = semver.inc(pkg.version, bump)
+    var versionNew = bump.match(/^(?:major|minor|patch)$/) ? semver.inc(pkg.version, bump) : bump
     var re = new RegExp(`(["']version["'][ \t\r\n]*:[ \t\r\n]*["'])${escRE(versionOld)}(["'])`)
     var pkgDataNew = pkgData.replace(re, `$1${versionNew}$2`)
     if (pkgDataNew === pkgData)
