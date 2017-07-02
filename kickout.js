@@ -30,6 +30,7 @@ var yargs      = require("yargs")
 var co         = require("co")
 var exeq       = require("exeq")
 var chalk      = require("chalk")
+var stripAnsi  = require("strip-ansi")
 var semver     = require("semver")
 var escRE      = require("escape-string-regexp")
 var UN         = require("update-notifier")
@@ -81,7 +82,7 @@ co(function * () {
     /*  helper functions  */
     var out = (txt) => {
         if (argv.noColor)
-            txt = chalk.stripColor(txt)
+            txt = stripAnsi(txt)
         process.stdout.write(txt)
     }
     var cmd = (cmd, noop) => {
