@@ -27,23 +27,23 @@
         "grunt-cli":              "~1.2.0",
         "grunt-contrib-clean":    "~1.1.0",
         "grunt-eslint":           "~20.1.0",
-        "babel-eslint":           "~8.0.1",
-        "eslint":                 "~4.8.0",
+        "babel-eslint":           "~8.0.3",
+        "eslint":                 "~4.12.1",
         "eslint-config-standard": "~10.2.1",
         "eslint-plugin-standard": "~3.0.1",
-        "eslint-plugin-promise":  "~3.5.0",
-        "eslint-plugin-import":   "~2.7.0",
-        "eslint-plugin-node":     "~5.2.0"
+        "eslint-plugin-promise":  "~3.6.0",
+        "eslint-plugin-import":   "~2.8.0",
+        "eslint-plugin-node":     "~5.2.1"
     },
     "dependencies" : {
-        "yargs":                  "~9.0.1",
-        "update-notifier":        "~2.2.0",
+        "yargs":                  "~10.0.3",
+        "update-notifier":        "~2.3.0",
         "escape-string-regexp":   "~1.0.5",
         "bluebird":               "~3.5.1",
         "exeq":                   "~3.0.0",
         "co":                     "~4.6.0",
         "semver":                 "~5.4.1",
-        "chalk":                  "~2.1.0",
+        "chalk":                  "~2.3.0",
         "strip-ansi":             "~4.0.0"
     },
     "engines": {
