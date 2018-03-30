@@ -24,27 +24,26 @@
 */
 
 /*  external requirements  */
-var Promise    = require("bluebird")
-var fs         = require("fs")
-var yargs      = require("yargs")
-var co         = require("co")
-var exeq       = require("exeq")
-var chalk      = require("chalk")
-var stripAnsi  = require("strip-ansi")
-var semver     = require("semver")
-var escRE      = require("escape-string-regexp")
-var UN         = require("update-notifier")
+const Promise    = require("bluebird")
+const fs         = require("fs")
+const yargs      = require("yargs")
+const exeq       = require("exeq")
+const chalk      = require("chalk")
+const stripAnsi  = require("strip-ansi")
+const semver     = require("semver")
+const escRE      = require("escape-string-regexp")
+const UN         = require("update-notifier")
 
-co(function * () {
+;(async () => {
     /*  load my own information  */
-    var my = require("./package.json")
+    const my = require("./package.json")
 
     /*  automatic update notification (with 2 days check interval)  */
-    var notifier = UN({ pkg: my, updateCheckInterval: 1000 * 60 * 60 * 24 * 2 })
+    const notifier = UN({ pkg: my, updateCheckInterval: 1000 * 60 * 60 * 24 * 2 })
     notifier.notify()
 
     /*  command-line option parsing  */
-    var argv = yargs
+    let argv = yargs
         .usage("Usage: $0 [-h] [-V] [-C] [-m <message>] [-t <tag>] major|minor|patch|X.Y.Z")
         .help("h").alias("h", "help").default("h", false)
         .describe("h", "show usage help")
@@ -67,7 +66,7 @@ co(function * () {
     if (argv.version) {
         process.stderr.write(my.name + " " + my.version + " <" + my.homepage + ">\n")
         process.stderr.write(my.description + "\n")
-        process.stderr.write("Copyright (c) 2017 " + my.author.name + " <" + my.author.url + ">\n")
+        process.stderr.write("Copyright (c) 2017-2018 " + my.author.name + " <" + my.author.url + ">\n")
         process.stderr.write("Licensed under " + my.license + " <http://spdx.org/licenses/" + my.license + ".html>\n")
         process.exit(0)
     }
@@ -75,17 +74,17 @@ co(function * () {
     /*  gather argument  */
     if (argv._.length !== 1)
         throw new Error("invalid number of arguments")
-    var bump = argv._[0]
+    let bump = argv._[0]
     if (!bump.match(/^(?:major|minor|patch|\d+\.\d+\.\d+)$/))
         throw new Error("invalid bumping mode")
 
     /*  helper functions  */
-    var out = (txt) => {
+    const out = (txt) => {
         if (argv.noColor)
             txt = stripAnsi(txt)
         process.stdout.write(txt)
     }
-    var cmd = (cmd, noop) => {
+    const cmd = (cmd, noop) => {
         if (noop) {
             out(`$ ${chalk.blue("# " + cmd)}\n`)
             return Promise.resolve({ stdout: "", stderr: "" })
@@ -103,15 +102,15 @@ co(function * () {
         out(`** ${chalk.red.bold("ERROR:")} cannot find NPM package configuration file "package.json"\n`)
         process.exit(1)
     }
-    var pkgData = fs.readFileSync("package.json", { encoding: "utf8" })
-    var pkg = JSON.parse(pkgData)
+    let pkgData = fs.readFileSync("package.json", { encoding: "utf8" })
+    let pkg = JSON.parse(pkgData)
     if (typeof pkg !== "object") {
         out(`** ${chalk.red.bold("ERROR:")} invalid NPM package configuration file "package.json"\n`)
         process.exit(1)
     }
 
     /*  step 2: check Git working copy status  */
-    var status = yield (cmd("git status --porcelain", false).then(({ stdout, stderr }) => {
+    let status = await cmd("git status --porcelain", false).then(({ stdout, stderr }) => {
         if (stdout === "" && stderr === "")
             return "clean"
         else if (stderr === "")
@@ -120,7 +119,7 @@ co(function * () {
             return "error"
     }).catch((/* err */) => {
         return "error"
-    }))
+    })
     if (status !== "clean") {
         out(`** ${chalk.red.bold("ERROR:")} Git working copy status: ${chalk.bold(status)}\n`)
         process.exit(1)
@@ -128,12 +127,12 @@ co(function * () {
 
     /*  step 3: optionally run NPM pre-publish scripts  */
     if (typeof pkg.scripts === "object" && typeof pkg.scripts.prepublish === "string")
-        yield (cmd("npm run prepublish", argv.noop))
+        await cmd("npm run prepublish", argv.noop)
     else if (typeof pkg.scripts === "object" && typeof pkg.scripts.prepublishOnly === "string")
-        yield (cmd("npm run prepublishOnly", argv.noop))
+        await cmd("npm run prepublishOnly", argv.noop)
 
     /*  step 4: determine latest published NPM version  */
-    var versionOld = yield (cmd(`npm view ${pkg.name} version`, false).then((res) => res.stdout))
+    let versionOld = await cmd(`npm view ${pkg.name} version`, false).then((res) => res.stdout)
     versionOld = versionOld.replace(/\r?\n$/, "")
 
     /*  step 5: bump version number in package.json  */
@@ -141,30 +140,30 @@ co(function * () {
         out(`** ${chalk.red.bold("ERROR:")} latest published NPM package version not equal current version in package.json\n`)
         process.exit(1)
     }
-    var versionNew = bump.match(/^(?:major|minor|patch)$/) ? semver.inc(pkg.version, bump) : bump
-    var re = new RegExp(`(["']version["'][ \t\r\n]*:[ \t\r\n]*["'])${escRE(versionOld)}(["'])`)
-    var pkgDataNew = pkgData.replace(re, `$1${versionNew}$2`)
+    let versionNew = bump.match(/^(?:major|minor|patch)$/) ? semver.inc(pkg.version, bump) : bump
+    let re = new RegExp(`(["']version["'][ \t\r\n]*:[ \t\r\n]*["'])${escRE(versionOld)}(["'])`)
+    let pkgDataNew = pkgData.replace(re, `$1${versionNew}$2`)
     if (pkgDataNew === pkgData)
-        throw new Error("failed to update package configuration from version \"" + versionOld + "\" to \"" + versionNew + "\"")
+        throw new Error(`failed to update package configuration from version "${versionOld}" to "${versionNew}"`)
     if (!argv.noop)
         fs.writeFileSync("package.json", pkgDataNew, { encoding: "utf8" })
 
     /*  step 6: commit changes to Git  */
-    var message = argv.message !== "" ? argv.message : `release version ${versionNew}`
+    let message = argv.message !== "" ? argv.message : `release version ${versionNew}`
     message = message.replace(/"/g, "\\\"").replace(/\$/g, "\\$")
-    yield (cmd(`git commit -m "${message}" package.json`, argv.noop))
+    await cmd(`git commit -m "${message}" package.json`, argv.noop)
 
     /*  step 7: create a Git tag for the new version  */
-    yield (cmd(`git tag ${versionNew}`, argv.noop))
+    await cmd(`git tag ${versionNew}`, argv.noop)
 
     /*  step 8: push changes to upstream repository  */
-    yield (cmd("git push && git push --tags", argv.noop))
+    await cmd("git push && git push --tags", argv.noop)
 
     /*  step 9: publish new NPM package version  */
-    yield (cmd(`npm publish --tag=${argv.tag}`, argv.noop))
-}).catch(function (err) {
+    await cmd(`npm publish --tag=${argv.tag}`, argv.noop)
+})().catch((err) => {
     /*  fatal error  */
-    process.stderr.write("** " + chalk.red.bold("ERROR:") + " " + err.toString() + "\n")
+    process.stderr.write(`"** ${chalk.red.bold("ERROR:")} ${err.toString()}\n`)
     process.exit(1)
 })
 
