@@ -31,11 +31,10 @@ bootstrap:
 	@if [ ! -x $(GRUNT) ]; then $(NPM) install; fi
 
 build: bootstrap
-	@$(GRUNT)
+	@$(NPM) run prepublishOnly
 
 clean: bootstrap
-	@$(GRUNT) clean:clean
 
 distclean: bootstrap
-	@$(GRUNT) clean:clean clean:distclean
+	@rm -rf node_modules
 
