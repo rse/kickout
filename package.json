@@ -38,7 +38,7 @@
         "bluebird":               "~3.5.1",
         "exeq":                   "~3.0.0",
         "semver":                 "~5.5.0",
-        "chalk":                  "~2.3.2",
+        "chalk":                  "~2.4.0",
         "strip-ansi":             "~4.0.0"
     },
     "engines": {
