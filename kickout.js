@@ -163,7 +163,7 @@ const UN         = require("update-notifier")
     await cmd(`npm publish --tag=${argv.tag}`, argv.noop)
 })().catch((err) => {
     /*  fatal error  */
-    process.stderr.write(`"** ${chalk.red.bold("ERROR:")} ${err.toString()}\n`)
+    process.stderr.write(`** ${chalk.red.bold("ERROR:")} ${err.toString()}\n`)
     process.exit(1)
 })
 
