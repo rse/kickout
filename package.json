@@ -23,23 +23,23 @@
         "kickout": "./kickout.js"
     },
     "devDependencies": {
-        "babel-eslint":           "~8.2.3",
-        "eslint":                 "~4.19.1",
-        "eslint-config-standard": "~11.0.0",
-        "eslint-plugin-standard": "~3.1.0",
-        "eslint-plugin-promise":  "~3.8.0",
-        "eslint-plugin-import":   "~2.12.0",
-        "eslint-plugin-node":     "~6.0.1"
+        "babel-eslint":           "8.2.5",
+        "eslint":                 "5.0.0",
+        "eslint-config-standard": "11.0.0",
+        "eslint-plugin-standard": "3.1.0",
+        "eslint-plugin-promise":  "3.8.0",
+        "eslint-plugin-import":   "2.12.0",
+        "eslint-plugin-node":     "6.0.1"
     },
     "dependencies" : {
-        "yargs":                  "~11.0.0",
-        "update-notifier":        "~2.5.0",
-        "escape-string-regexp":   "~1.0.5",
-        "bluebird":               "~3.5.1",
-        "exeq":                   "~3.0.0",
-        "semver":                 "~5.5.0",
-        "chalk":                  "~2.4.1",
-        "strip-ansi":             "~4.0.0"
+        "yargs":                  "11.0.0",
+        "update-notifier":        "2.5.0",
+        "escape-string-regexp":   "1.0.5",
+        "bluebird":               "3.5.1",
+        "exeq":                   "3.0.0",
+        "semver":                 "5.5.0",
+        "chalk":                  "2.4.1",
+        "strip-ansi":             "4.0.0"
     },
     "engines": {
         "node":                   ">=8.0.0"
