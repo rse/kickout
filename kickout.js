@@ -27,7 +27,8 @@
 const Promise    = require("bluebird")
 const fs         = require("fs")
 const yargs      = require("yargs")
-const exeq       = require("exeq")
+const execa      = require("execa")
+const getStream  = require("get-stream")
 const chalk      = require("chalk")
 const stripAnsi  = require("strip-ansi")
 const semver     = require("semver")
@@ -91,9 +92,20 @@ const UN         = require("update-notifier")
         }
         else {
             out(`$ ${chalk.blue(cmd)}\n`)
-            return exeq(cmd)
-                .then((res) => res[0])
-                .catch((/* err */) => { throw new Error("shell command failed") })
+            let child = execa.shell(cmd)
+            child.stdout.pipe(process.stdout)
+            child.stderr.pipe(process.stderr)
+            return Promise.all([
+                child,
+                getStream(child.stdout),
+                getStream(child.stderr)
+            ]).then(([ result, stdout, stderr ]) => {
+                result.stdout = stdout
+                result.stderr = stderr
+                return result
+            }).catch((/* err */) => {
+                throw new Error("shell command failed")
+            })
         }
     }
 
