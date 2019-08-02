@@ -44,7 +44,7 @@ const UN         = require("update-notifier")
     notifier.notify()
 
     /*  command-line option parsing  */
-    let argv = yargs
+    const argv = yargs
         .usage("Usage: $0 [-h] [-V] [-C] [-m <message>] [-t <tag>] major|minor|patch|X.Y.Z")
         .help("h").alias("h", "help").default("h", false)
         .describe("h", "show usage help")
@@ -75,7 +75,7 @@ const UN         = require("update-notifier")
     /*  gather argument  */
     if (argv._.length !== 1)
         throw new Error("invalid number of arguments")
-    let bump = argv._[0]
+    const bump = argv._[0]
     if (!bump.match(/^(?:major|minor|patch|\d+\.\d+\.\d+)$/))
         throw new Error("invalid bumping mode")
 
@@ -92,7 +92,7 @@ const UN         = require("update-notifier")
         }
         else {
             out(`$ ${chalk.blue(cmd)}\n`)
-            let child = execa.shell(cmd)
+            const child = execa.shell(cmd)
             child.stdout.pipe(process.stdout)
             child.stderr.pipe(process.stderr)
             return Promise.all([
@@ -114,15 +114,15 @@ const UN         = require("update-notifier")
         out(`** ${chalk.red.bold("ERROR:")} cannot find NPM package configuration file "package.json"\n`)
         process.exit(1)
     }
-    let pkgData = fs.readFileSync("package.json", { encoding: "utf8" })
-    let pkg = JSON.parse(pkgData)
+    const pkgData = fs.readFileSync("package.json", { encoding: "utf8" })
+    const pkg = JSON.parse(pkgData)
     if (typeof pkg !== "object") {
         out(`** ${chalk.red.bold("ERROR:")} invalid NPM package configuration file "package.json"\n`)
         process.exit(1)
     }
 
     /*  step 2: check Git working copy status  */
-    let status = await cmd("git status --porcelain", false).then(({ stdout, stderr }) => {
+    const status = await cmd("git status --porcelain", false).then(({ stdout, stderr }) => {
         if (stdout === "" && stderr === "")
             return "clean"
         else if (stderr === "")
@@ -152,9 +152,9 @@ const UN         = require("update-notifier")
         out(`** ${chalk.red.bold("ERROR:")} latest published NPM package version not equal current version in package.json\n`)
         process.exit(1)
     }
-    let versionNew = bump.match(/^(?:major|minor|patch)$/) ? semver.inc(pkg.version, bump) : bump
-    let re = new RegExp(`(["']version["'][ \t\r\n]*:[ \t\r\n]*["'])${escRE(versionOld)}(["'])`)
-    let pkgDataNew = pkgData.replace(re, `$1${versionNew}$2`)
+    const versionNew = bump.match(/^(?:major|minor|patch)$/) ? semver.inc(pkg.version, bump) : bump
+    const re = new RegExp(`(["']version["'][ \t\r\n]*:[ \t\r\n]*["'])${escRE(versionOld)}(["'])`)
+    const pkgDataNew = pkgData.replace(re, `$1${versionNew}$2`)
     if (pkgDataNew === pkgData)
         throw new Error(`failed to update package configuration from version "${versionOld}" to "${versionNew}"`)
     if (!argv.noop)
