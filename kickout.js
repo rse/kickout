@@ -92,7 +92,7 @@ const UN         = require("update-notifier")
         }
         else {
             out(`$ ${chalk.blue(cmd)}\n`)
-            const child = execa.shell(cmd)
+            const child = execa(cmd, { shell: true })
             child.stdout.pipe(process.stdout)
             child.stderr.pipe(process.stderr)
             return Promise.all([
