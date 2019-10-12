@@ -32,11 +32,11 @@
         "eslint-plugin-node":     "10.0.0"
     },
     "dependencies" : {
-        "yargs":                  "14.0.0",
+        "yargs":                  "14.2.0",
         "update-notifier":        "3.0.1",
         "escape-string-regexp":   "2.0.0",
         "bluebird":               "3.7.0",
-        "execa":                  "2.0.5",
+        "execa":                  "2.1.0",
         "get-stream":             "5.1.0",
         "semver":                 "6.3.0",
         "chalk":                  "2.4.2",
