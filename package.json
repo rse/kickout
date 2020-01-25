@@ -28,11 +28,11 @@
         "eslint-config-standard": "14.1.0",
         "eslint-plugin-standard": "4.0.1",
         "eslint-plugin-promise":  "4.2.1",
-        "eslint-plugin-import":   "2.19.1",
-        "eslint-plugin-node":     "10.0.0"
+        "eslint-plugin-import":   "2.20.0",
+        "eslint-plugin-node":     "11.0.0"
     },
     "dependencies" : {
-        "yargs":                  "15.0.2",
+        "yargs":                  "15.1.0",
         "update-notifier":        "4.0.0",
         "escape-string-regexp":   "2.0.0",
         "bluebird":               "3.7.2",
