@@ -24,21 +24,20 @@
     },
     "devDependencies": {
         "babel-eslint":           "10.1.0",
-        "eslint":                 "7.7.0",
-        "eslint-config-standard": "14.1.1",
-        "eslint-plugin-standard": "4.0.1",
+        "eslint":                 "7.17.0",
+        "eslint-config-standard": "16.0.2",
         "eslint-plugin-promise":  "4.2.1",
-        "eslint-plugin-import":   "2.22.0",
+        "eslint-plugin-import":   "2.22.1",
         "eslint-plugin-node":     "11.1.0"
     },
     "dependencies" : {
-        "yargs":                  "15.4.1",
-        "update-notifier":        "4.1.1",
+        "yargs":                  "16.2.0",
+        "update-notifier":        "5.0.1",
         "escape-string-regexp":   "4.0.0",
         "bluebird":               "3.7.2",
-        "execa":                  "4.0.3",
+        "execa":                  "5.0.0",
         "get-stream":             "6.0.0",
-        "semver":                 "7.3.2",
+        "semver":                 "7.3.4",
         "chalk":                  "4.1.0",
         "strip-ansi":             "6.0.0"
     },
