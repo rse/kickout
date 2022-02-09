@@ -31,7 +31,7 @@
         "eslint-plugin-node":     "11.1.0"
     },
     "dependencies" : {
-        "yargs":                  "17.1.0",
+        "yargs":                  "17.3.1",
         "update-notifier":        "5.1.0",
         "escape-string-regexp":   "4.0.0",
         "bluebird":               "3.7.2",
@@ -46,7 +46,7 @@
         "!strip-ansi"
     ],
     "engines": {
-        "node":                   ">=8.0.0"
+        "node":                   ">=12.0.0"
     },
     "scripts": {
         "prepublishOnly":         "eslint --config eslint.yaml kickout.js"
