@@ -14,7 +14,7 @@
     ],
     "repository": {
         "type": "git",
-        "url":  "git://github.com/rse/kickout.git"
+        "url":  "git+https://github.com/rse/kickout.git"
     },
     "bugs": {
         "url":  "http://github.com/rse/kickout/issues"
