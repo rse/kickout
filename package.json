@@ -20,7 +20,7 @@
         "url":  "http://github.com/rse/kickout/issues"
     },
     "bin": {
-        "kickout": "./kickout.js"
+        "kickout": "kickout.js"
     },
     "devDependencies": {
         "eslint":                 "8.57.0",
