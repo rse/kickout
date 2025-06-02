@@ -26,7 +26,7 @@
 /*  external requirements  */
 import fs         from "fs"
 import yargs      from "yargs"
-import execa      from "execa"
+import { execa }  from "execa"
 import getStream  from "get-stream"
 import chalk      from "chalk"
 import stripAnsi  from "strip-ansi"
