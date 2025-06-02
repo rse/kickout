@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /*!
 **  Kickout -- Conveniently Release Git-Versioned NPM Package
-**  Copyright (c) 2017-2024 Dr. Ralf S. Engelschall <rse@engelschall.com>
+**  Copyright (c) 2017-2025 Dr. Ralf S. Engelschall <rse@engelschall.com>
 **
 **  Permission is hereby granted, free of charge, to any person obtaining
 **  a copy of this software and associated documentation files (the
@@ -44,7 +44,7 @@ const UN         = require("update-notifier")
     notifier.notify()
 
     /*  command-line option parsing  */
-    const argv = yargs
+    const argv = yargs()
         .usage("Usage: $0 [-h] [-V] [-C] [-m <message>] [-t <tag>] major|minor|patch|X.Y.Z")
         .help("h").alias("h", "help").default("h", false)
         .describe("h", "show usage help")
@@ -67,7 +67,7 @@ const UN         = require("update-notifier")
     if (argv.version) {
         process.stderr.write(my.name + " " + my.version + " <" + my.homepage + ">\n")
         process.stderr.write(my.description + "\n")
-        process.stderr.write("Copyright (c) 2017-2024 " + my.author.name + " <" + my.author.url + ">\n")
+        process.stderr.write("Copyright (c) 2017-2025 " + my.author.name + " <" + my.author.url + ">\n")
         process.stderr.write("Licensed under " + my.license + " <http://spdx.org/licenses/" + my.license + ".html>\n")
         process.exit(0)
     }

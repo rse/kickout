@@ -1,6 +1,6 @@
 /*
-**  UPD -- Upgrade NPM Package Dependencies
-**  Copyright (c) 2015-2025 Dr. Ralf S. Engelschall <rse@engelschall.com>
+**  Kickout -- Release Git-Versioned NPM Package
+**  Copyright (c) 2017-2025 Dr. Ralf S. Engelschall <rse@engelschall.com>
 */
 
 import pluginJs      from "@eslint/js"
