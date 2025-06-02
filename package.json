@@ -22,6 +22,7 @@
     "bin": {
         "kickout": "kickout.js"
     },
+    "type": "module",
     "devDependencies": {
         "eslint":                 "9.28.0",
         "@eslint/js":             "9.28.0",
@@ -35,7 +36,6 @@
         "yargs":                  "18.0.0",
         "update-notifier":        "5.1.0",
         "escape-string-regexp":   "4.0.0",
-        "bluebird":               "3.7.2",
         "execa":                  "5.1.1",
         "get-stream":             "6.0.1",
         "semver":                 "7.7.2",

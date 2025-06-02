@@ -24,20 +24,19 @@
 */
 
 /*  external requirements  */
-const Promise    = require("bluebird")
-const fs         = require("fs")
-const yargs      = require("yargs")
-const execa      = require("execa")
-const getStream  = require("get-stream")
-const chalk      = require("chalk")
-const stripAnsi  = require("strip-ansi")
-const semver     = require("semver")
-const escRE      = require("escape-string-regexp")
-const UN         = require("update-notifier")
+import fs         from "fs"
+import yargs      from "yargs"
+import execa      from "execa"
+import getStream  from "get-stream"
+import chalk      from "chalk"
+import stripAnsi  from "strip-ansi"
+import semver     from "semver"
+import escRE      from "escape-string-regexp"
+import UN         from "update-notifier"
 
 ;(async () => {
     /*  load my own information  */
-    const my = require("./package.json")
+    const my = JSON.parse(await fs.promises.readFile(new URL("./package.json", import.meta.url)))
 
     /*  automatic update notification (with 2 days check interval)  */
     const notifier = UN({ pkg: my, updateCheckInterval: 1000 * 60 * 60 * 24 * 2 })
