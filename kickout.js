@@ -102,8 +102,8 @@ import UN         from "update-notifier"
                 result.stdout = stdout
                 result.stderr = stderr
                 return result
-            }).catch((/* err */) => {
-                throw new Error("shell command failed")
+            }).catch((err) => {
+                throw new Error(`shell command failed: ${err.message}`)
             })
         }
     }
