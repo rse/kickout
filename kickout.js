@@ -161,7 +161,7 @@ import UN         from "update-notifier"
 
     /*  step 6: commit changes to Git  */
     let message = argv.message !== "" ? argv.message : `release version ${versionNew}`
-    message = message.replace(/"/g, "\\\"").replace(/\$/g, "\\$")
+    message = message.replace(/"/g, "\\\"").replace(/\$/g, "\\$").replace(/`/g, "\\`")
     await cmd(`git commit -m "${message}" package.json`, argv.noop)
 
     /*  step 7: create a Git tag for the new version  */
