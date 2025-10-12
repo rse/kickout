@@ -84,14 +84,14 @@ import UN         from "update-notifier"
             txt = stripAnsi(txt)
         process.stdout.write(txt)
     }
-    const cmd = (cmd, noop) => {
+    const cmd = (command, noop) => {
         if (noop) {
-            out(`$ ${chalk.blue("# " + cmd)}\n`)
+            out(`$ ${chalk.blue("# " + command)}\n`)
             return Promise.resolve({ stdout: "", stderr: "" })
         }
         else {
-            out(`$ ${chalk.blue(cmd)}\n`)
-            const child = execa(cmd, { shell: true })
+            out(`$ ${chalk.blue(command)}\n`)
+            const child = execa(command, { shell: true })
             child.stdout.pipe(process.stdout)
             child.stderr.pipe(process.stderr)
             return Promise.all([
