@@ -143,8 +143,11 @@ import UN         from "update-notifier"
         await cmd("npm run prepublishOnly", argv.noop)
 
     /*  step 4: determine latest published NPM version  */
-    let versionOld = await cmd(`npm view ${pkg.name} version`, false).then((res) => res.stdout)
-    versionOld = versionOld.replace(/\r?\n$/, "")
+    let versionOld = await cmd(`npm view ${pkg.name} version`, false).then((res) => res.stdout).catch(() => {
+        out(`** ${chalk.red.bold("ERROR:")} package not yet published on NPM (use explicit version for first publish)\n`)
+        process.exit(1)
+    })
+    versionOld = versionOld.trimEnd()
 
     /*  step 5: bump version number in package.json  */
     if (semver.neq(pkg.version, versionOld)) {
