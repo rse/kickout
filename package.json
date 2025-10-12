@@ -2,7 +2,7 @@
     "name":        "kickout",
     "homepage":    "http://github.com/rse/kickout",
     "description": "Conveniently Release Git-Versioned NPM Package",
-    "version":     "2.0.2",
+    "version":     "2.0.3",
     "license":     "MIT",
     "author": {
         "name":    "Dr. Ralf S. Engelschall",
